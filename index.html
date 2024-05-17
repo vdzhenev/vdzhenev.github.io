@@ -79,11 +79,11 @@
 		// функция, която върти стрелката на компаса
 		// в обратна посока на въртенето на устройството
 		function deviceOrientation(event) {
-			camera.rotation.x = THREE.MathUtils.degToRad(Math.PI + event.gamma);
-			document.getElementById('alpha').innerHTML = event.alpha.toFixed(1);
-			document.getElementById('beta').innerHTML = event.beta.toFixed(1);
-			document.getElementById('gamma').innerHTML = event.gamma.toFixed(1);
-			document.getElementById('absolute').innerHTML = event.absolute.toFixed(1);
+			if (event.gamma > 10)
+				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma);
+			else if (event.gamma < 0 && event.gamma > -10)
+				camera.rotation.x = THREE.MathUtils.degToRad(180 + event.gamma)
+			camera.rotation.z = THREE.MathUtils.degToRad(event.alpha);
 		}
 
 		//function animate(t) {
