@@ -83,7 +83,7 @@
 				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma);
 			else if (event.gamma < 0 && event.gamma > -10)
 				camera.rotation.x = THREE.MathUtils.degToRad(180 + event.gamma)
-			camera.rotation.z = THREE.MathUtils.degToRad(event.alpha);
+			camera.rotation.y = THREE.MathUtils.degToRad(event.alpha);
 		}
 
 		//function animate(t) {
