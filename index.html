@@ -28,9 +28,9 @@
 
 		vaxInit(animate);
 
-		camera.position.set(0, 10, 0);
+		camera.position.set(0, 120, 0);
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
-		camera.fov = 30;
+		//camera.fov = 30;
 		camera.updateProjectionMatrix();
 
 		//var controls = new OrbitControls(camera, renderer.domElement);
@@ -82,10 +82,10 @@
 			camera.rotation.y = THREE.MathUtils.degToRad(-event.alpha);
 		}
 
-		function animate(t) {
-			//invaderMesh.rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
-			//controls.update();
-		}
+		//function animate(t) {
+		//	//invaderMesh.rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
+		//	//controls.update();
+		//}
 
 	</script>
 </body>
