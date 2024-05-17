@@ -1,1 +1,93 @@
-Hello World!
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>E1113: Кубична текстура</title>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
+</head>
+
+<body>
+	<script type="module">
+
+		import * as THREE from "three";
+		import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+		import { vaxInit, renderer, scene, light, camera } from "vax";
+
+		vaxInit(animate);
+
+		camera.position.set(0, 10, 0);
+		camera.lookAt(new THREE.Vector3(0, 0, 0));
+		camera.fov = 30;
+		camera.updateProjectionMatrix();
+
+		//var controls = new OrbitControls(camera, renderer.domElement);
+		//controls.enableZoom = false;
+		//controls.enablePan = false;
+		//controls.enableDamping = true;
+		//controls.minPolarAngle = 0.1;
+		//controls.maxPolarAngle = Math.PI - 0.1;
+		//controls.dampingFactor = 0.1;
+
+		//scene.background = new THREE.Color("blue");
+		//scene.background = new THREE.CubeTextureLoader().load([
+		//	'Storforsen/posx.jpg', 'Storforsen/negx.jpg',
+		//	'Storforsen/posy.jpg', 'Storforsen/negy.jpg',
+		//	'Storforsen/posz.jpg', 'Storforsen/negz.jpg']);
+		//scene.background.colorSpace = THREE.LinearSRGBColorSpace;
+
+		light.position.set(0, 200, 0);
+		var ambientSky = new THREE.AmbientLight("white", 1);
+		var ambientForest = new THREE.AmbientLight("darkgreen", 0.5);
+		scene.add(ambientSky, ambientForest);
+
+		var invaderMaterial = new THREE.MeshPhysicalMaterial({
+			color: "white",
+			//transmission: 1,
+			roughness: 0,
+			ior: 1.5,
+			reflectivity: 1,
+			thickness: 0.5,
+			specularIntensity: 1,
+			specularColor: "white"
+		});
+
+		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 0), invaderMaterial);
+
+		var invaders = [];
+		for (var i = 0; i < 5; i++)
+			invaders[i] = invaderMesh.clone();
+		//scene.add(invaderMesh);
+		invaders[0].position.set(0, -80, 0);
+		scene.add(invaders[0]);
+
+		// слушаме за събитието на ориентацията на устройство
+		window.addEventListener("deviceorientation", deviceOrientation, true);
+
+		// функция, която върти стрелката на компаса
+		// в обратна посока на въртенето на устройството
+		function deviceOrientation(event) {
+			camera.rotation.y = THREE.MathUtils.degToRad(-event.alpha);
+		}
+
+		function animate(t) {
+			//invaderMesh.rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
+			//controls.update();
+		}
+
+	</script>
+</body>
+
+</html>
