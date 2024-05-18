@@ -88,7 +88,7 @@
 		invaders[13].position.set(50, 50, -120);
 
 		// взимаме събитие за ориентация на устройството
-		// window.addEventListener("deviceorientation", deviceOrientation, true);
+		window.addEventListener("deviceorientation", deviceOrientation, true);
 
 		function deviceOrientation(event) {
 			// ротация по X и по Y
@@ -114,7 +114,6 @@
 		}
 
 		function animate(t) {
-			camera.rotation.y = t/3;
 			// анимация за завъртане на нашествениците
 			for (var i = 0; i < n; i++)
 				invaders[i].rotation.set(Math.sin(t), Math.cos(t), Math.sin(t));
