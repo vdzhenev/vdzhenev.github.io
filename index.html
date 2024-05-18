@@ -28,20 +28,11 @@
 
 		vaxInit();
 
-		camera.position.set(0, 120, 0);
-		camera.lookAt(new THREE.Vector3(0, 0, 0));
+		camera.position.set(0, 10, 0);
+		camera.lookAt(new THREE.Vector3(0, 10, 10));
 		camera.fov = 30;
 		camera.updateProjectionMatrix();
 
-		//var controls = new OrbitControls(camera, renderer.domElement);
-		//controls.enableZoom = false;
-		//controls.enablePan = false;
-		//controls.enableDamping = true;
-		//controls.minPolarAngle = 0.1;
-		//controls.maxPolarAngle = Math.PI - 0.1;
-		//controls.dampingFactor = 0.1;
-
-		scene.background = new THREE.Color("blue");
 		scene.background = new THREE.CubeTextureLoader().load([
 			'Storforsen/posx.jpg', 'Storforsen/negx.jpg',
 			'Storforsen/posy.jpg', 'Storforsen/negy.jpg',
@@ -64,28 +55,25 @@
 			specularColor: "white"
 		});
 
-		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 0), invaderMaterial);
+		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), invaderMaterial);
 
 		var invaders = [];
 		for (var i = 0; i < 5; i++) {
 			invaders[i] = invaderMesh.clone();
 			invaders[i].position.set(40*Math.sin((i*2*Math.PI)/5), 10 + 2*i, 40*Math.cos((i*2*Math.PI)/5));
-			scene.add(invaders[0]);
+			scene.add(invaders[i]);
 		}
 
-		// слушаме за събитието на ориентацията на устройство
 		window.addEventListener("deviceorientation", deviceOrientation, true);
 
-		// функция, която върти стрелката на компаса
-		// в обратна посока на въртенето на устройството
 		function deviceOrientation(event) {
 			if (event.gamma > 10) {
-				camera.rotation.y = THREE.MathUtils.degToRad(-90 + event.alpha);
-				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma);
+				camera.rotation.y = THREE.MathUtils.degToRad(event.alpha);
+				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma-90);
 			}
 			else if (event.gamma < -10) {
-				camera.rotation.x = THREE.MathUtils.degToRad(90 + event.gamma)
-				camera.rotation.y = THREE.MathUtils.degToRad(180 + event.alpha);
+				camera.rotation.y = THREE.MathUtils.degToRad(event.gamma+90);
+				camera.rotation.x = THREE.MathUtils.degToRad(180 + event.alpha)
 			}
 		}
 
