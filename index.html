@@ -100,14 +100,14 @@
 			// ротация по X и по Y
 			var xRot, yRot;
 			if (event.gamma > 0) {
-				yRot = THREE.MathUtils.degToRad(-event.alpha);
+				yRot = THREE.MathUtils.degToRad(event.alpha);
 				if (event.gamma > 10)
 					xRot = THREE.MathUtils.degToRad(- event.gamma + 90);
 				else
 					xRot = THREE.MathUtils.degToRad(- 10 + 90);
 			}
 			else if (event.gamma < 0) {
-				yRot = THREE.MathUtils.degToRad(-180 - event.alpha);
+				yRot = THREE.MathUtils.degToRad(180 + event.alpha);
 				if (event.gamma < -10)
 					xRot = THREE.MathUtils.degToRad(- event.gamma - 90);
 				else
