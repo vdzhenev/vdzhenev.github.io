@@ -46,7 +46,7 @@
 
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
 			color: "white",
-			transmission: 1,
+			// transmission: 1,
 			roughness: 0,
 			ior: 1.5,
 			reflectivity: 1,
@@ -69,10 +69,10 @@
 		function deviceOrientation(event) {
 			if (event.gamma > 10) {
 				camera.rotation.y = THREE.MathUtils.degToRad(event.alpha);
-				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma-90);
+				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma+90);
 			}
 			else if (event.gamma < -10) {
-				camera.rotation.y = THREE.MathUtils.degToRad(event.gamma+90);
+				camera.rotation.y = THREE.MathUtils.degToRad(-event.gamma-90);
 				camera.rotation.x = THREE.MathUtils.degToRad(180 + event.alpha)
 			}
 		}
