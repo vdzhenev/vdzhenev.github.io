@@ -67,11 +67,11 @@
 		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(10, 0), invaderMaterial);
 
 		var invaders = [];
-		for (var i = 0; i < 5; i++)
+		for (var i = 0; i < 5; i++) {
 			invaders[i] = invaderMesh.clone();
-		//scene.add(invaderMesh);
-		invaders[0].position.set(0, 0, 0);
-		scene.add(invaders[0]);
+			invaders[i].position.set(40*Math.sin((i*2*Math.PI)/5), 10 + 2*i, 40*Math.cos((i*2*Math.PI)/5));
+			scene.add(invaders[0]);
+		}
 
 		// слушаме за събитието на ориентацията на устройство
 		window.addEventListener("deviceorientation", deviceOrientation, true);
@@ -80,18 +80,18 @@
 		// в обратна посока на въртенето на устройството
 		function deviceOrientation(event) {
 			if (event.gamma > 10) {
-				camera.rotation.y = THREE.MathUtils.degToRad(event.alpha);
+				camera.rotation.y = THREE.MathUtils.degToRad(-90 + event.alpha);
 				camera.rotation.x = THREE.MathUtils.degToRad(event.gamma);
 			}
 			else if (event.gamma < -10) {
-				camera.rotation.x = THREE.MathUtils.degToRad(180 + event.gamma)
+				camera.rotation.x = THREE.MathUtils.degToRad(90 + event.gamma)
 				camera.rotation.y = THREE.MathUtils.degToRad(180 + event.alpha);
 			}
 		}
 
 		function animate(t) {
-			invaders[0].rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
-			//controls.update();
+			for(var i = 0; i< 5; i++)
+				invaders[i].rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
 		}
 	</script>
 </body>
