@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<title>E1113: Кубична текстура</title>
+	<title>Тест 3: Кристални нападатели</title>
 	<meta charset="utf-8">
 
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -39,8 +39,7 @@
 			'Storforsen/posz.jpg', 'Storforsen/negz.jpg']);
 		scene.background.colorSpace = THREE.LinearSRGBColorSpace;
 
-		light.position.set(0, 10, 0);
-		light.intensity = 200;
+		light.position.set(0, 100, 0);
 		var ambientSky = new THREE.AmbientLight("white", 100);
 		var ambientForest = new THREE.AmbientLight("skyblue", 20);
 		scene.add(ambientSky, ambientForest);
@@ -49,7 +48,7 @@
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
 			color: 0xffffff,
 			transmission: 1,
-			opacity: 1,
+			opacity: 0.7,
 			metalness: 0,
 			roughness: 0,
 			ior: 1,
@@ -70,6 +69,7 @@
 			invaders[i] = invaderMesh.clone();
 			scene.add(invaders[i]);
 		}
+
 		invaders[0].position.set(0, 5, 200);
 		invaders[1].position.set(0, 16, -200);
 		invaders[2].position.set(-200, 40, 150);
@@ -104,7 +104,7 @@
 
 		function animate(t) {
 			for (var i = 0; i < n; i++)
-				invaders[i].rotation.set(Math.sin(t), Math.sin(t), Math.sin(t));
+				invaders[i].rotation.set(Math.sin(t), Math.cos(t), Math.sin(t));
 		}
 	</script>
 </body>
