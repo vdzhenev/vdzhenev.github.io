@@ -22,19 +22,21 @@
 <body>
 	<script type="module">
 
+		// ############################################################################
 		// Устройството трябва да е в пейзажен режим, горната му страна да сочи наляво
 
 		import * as THREE from "three";
-		import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 		import { vaxInit, renderer, scene, light, camera } from "vax";
 
 		vaxInit(animate);
 
+		// слагаме камерата в центъра на сцената
 		camera.position.set(0, 10, 0);
 		camera.lookAt(new THREE.Vector3(0, 10, 10));
 		camera.fov = 40;
 		camera.updateProjectionMatrix();
 
+		// кубична текстура за фона
 		scene.background = new THREE.CubeTextureLoader().load([
 			'Storforsen/posx.jpg', 'Storforsen/negx.jpg',
 			'Storforsen/posy.jpg', 'Storforsen/negy.jpg',
@@ -46,7 +48,7 @@
 		var ambientForest = new THREE.AmbientLight("skyblue", 20);
 		scene.add(ambientSky, ambientForest);
 
-
+		// материал за кристалните нашественици
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
 			color: 0xffffff,
 			transmission: 1,
@@ -63,15 +65,19 @@
 			transparent: true
 		});
 
+		// базов кристален нашественик
 		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), invaderMaterial);
 
+		// масив с нашественици
 		var invaders = [];
+		// брой нашественици
 		var n = 14;
 		for (var i = 0; i < n; i++) {
 			invaders[i] = invaderMesh.clone();
 			scene.add(invaders[i]);
 		}
 
+		// ръчно зададени координати за нашествениците
 		invaders[0].position.set(0, 5, 200);
 		invaders[1].position.set(0, 16, -200);
 		invaders[2].position.set(-200, 40, 150);
@@ -87,32 +93,34 @@
 		invaders[12].position.set(0, 50, -20);
 		invaders[13].position.set(50, 50, -120);
 
-
-
+		// взимаме събитие за ориентация на устройството
 		window.addEventListener("deviceorientation", deviceOrientation, true);
 
 		function deviceOrientation(event) {
+			// ротация по X и по Y
 			var xRot, yRot;
 			if (event.gamma > 0) {
 				yRot = THREE.MathUtils.degToRad(-event.alpha);
 				if (event.gamma > 10)
-					xRot = THREE.MathUtils.degToRad(180 - event.gamma + 90);
+					xRot = THREE.MathUtils.degToRad(- event.gamma + 90);
 				else
-					xRot = THREE.MathUtils.degToRad(180 - 10 + 90);
+					xRot = THREE.MathUtils.degToRad(- 10 + 90);
 			}
 			else if (event.gamma < 0) {
 				yRot = THREE.MathUtils.degToRad(-180 - event.alpha);
 				if (event.gamma < -10)
-					xRot = THREE.MathUtils.degToRad(180 - event.gamma - 90);
+					xRot = THREE.MathUtils.degToRad(- event.gamma - 90);
 				else
-					xRot = THREE.MathUtils.degToRad(180 - (-10) - 90);
-
+					xRot = THREE.MathUtils.degToRad(- (-10) - 90);
 			}
+			// ползваме кватернион за ротацията на камерата
+			// задаваме го чрез преобразуваните в радиани ъгли от ориентацията на устройството
 			var q = new THREE.Quaternion().setFromEuler(new THREE.Euler(xRot, yRot, 0, "YXZ"));
 			camera.setRotationFromQuaternion(q.normalize());
 		}
 
 		function animate(t) {
+			// анимация за завъртане на нашествениците
 			for (var i = 0; i < n; i++)
 				invaders[i].rotation.set(Math.sin(t), Math.cos(t), Math.sin(t));
 		}
