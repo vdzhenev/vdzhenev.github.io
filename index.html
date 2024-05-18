@@ -45,7 +45,7 @@
 		var ambientSky = new THREE.AmbientLight("white", 100);
 		var ambientForest = new THREE.AmbientLight("skyblue", 20);
 		scene.add(ambientSky, ambientForest);
-		
+
 
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
 			color: 0xffffff,
@@ -92,16 +92,24 @@
 		window.addEventListener("deviceorientation", deviceOrientation, true);
 
 		function deviceOrientation(event) {
+			var xRot, yRot;
 			if (event.gamma > 0) {
-				camera.rotation.y = THREE.MathUtils.degToRad(-event.alpha);
-				if(event.gamma > 10)
-					camera.rotation.x = THREE.MathUtils.degToRad(180 -event.gamma + 90);
+				yRot = THREE.MathUtils.degToRad(-event.alpha);
+				if (event.gamma > 10)
+					xRot = THREE.MathUtils.degToRad(180 - event.gamma + 90);
+				else
+					xRot = THREE.MathUtils.degToRad(180 - 10 + 90);
 			}
 			else if (event.gamma < 0) {
-				camera.rotation.y = THREE.MathUtils.degToRad(-180 - event.alpha);
-				if(event.gamma < -10);
-					camera.rotation.x = THREE.MathUtils.degToRad(180 -event.gamma - 90);
+				yRot = THREE.MathUtils.degToRad(-180 - event.alpha);
+				if (event.gamma < -10)
+					xRot = THREE.MathUtils.degToRad(180 - event.gamma - 90);
+				else
+					xRot = THREE.MathUtils.degToRad(180 - (-10) - 90);
+
 			}
+			var q = new THREE.Quaternion().setFromEuler(new THREE.Euler(xRot, yRot, 0, "YXZ"));
+			camera.setRotationFromQuaternion(q.normalize());
 		}
 
 		function animate(t) {
