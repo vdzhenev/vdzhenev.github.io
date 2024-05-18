@@ -69,11 +69,11 @@
 		function deviceOrientation(event) {
 			if (event.gamma > 10) {
 				camera.rotation.y = THREE.MathUtils.degToRad(event.alpha);
-				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma + 90);
+				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma + 90 - 180);
 			}
 			else if (event.gamma < -10) {
 				camera.rotation.y = THREE.MathUtils.degToRad(180 + event.alpha);
-				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma - 90);
+				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma - 90 - 180);
 			}
 		}
 
