@@ -46,7 +46,7 @@
 
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
 			color: "white",
-			// transmission: 1,
+			transmission: 1,
 			roughness: 0,
 			ior: 1.5,
 			reflectivity: 1,
@@ -60,7 +60,7 @@
 		var invaders = [];
 		for (var i = 0; i < 5; i++) {
 			invaders[i] = invaderMesh.clone();
-			invaders[i].position.set(40 * Math.sin((i * 2 * Math.PI) / 5), 10, 40 * Math.cos((i * 2 * Math.PI) / 5));
+			invaders[i].position.set(50 * Math.sin((i * 2 * Math.PI) / 5), 12, 50 * Math.cos((i * 2 * Math.PI) / 5));
 			scene.add(invaders[i]);
 		}
 
@@ -68,12 +68,12 @@
 
 		function deviceOrientation(event) {
 			if (event.gamma > 10) {
-				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma + 90 - 180);
 				camera.rotation.y = THREE.MathUtils.degToRad(-event.alpha);
+				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma + 90 - 180);
 			}
 			else if (event.gamma < -10) {
-				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma - 90 - 180);
 				camera.rotation.y = THREE.MathUtils.degToRad(-180 - event.alpha);
+				camera.rotation.x = THREE.MathUtils.degToRad(-event.gamma - 90 - 180);
 			}
 		}
 
