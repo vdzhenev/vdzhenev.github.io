@@ -43,31 +43,27 @@
 			'Storforsen/posz.jpg', 'Storforsen/negz.jpg']);
 		scene.background.colorSpace = THREE.LinearSRGBColorSpace;
 
-		light.position.set(0, 100, 0);
-		var ambientSky = new THREE.AmbientLight("white", 100);
-		var ambientForest = new THREE.AmbientLight("skyblue", 20);
-		scene.add(ambientSky, ambientForest);
+		light.position.set(0, 200, 200);
+		var ambientSky = new THREE.AmbientLight("white", 2);
+		scene.add(ambientSky);
 
 		// материал за кристалните нашественици
 		var invaderMaterial = new THREE.MeshPhysicalMaterial({
-			color: 0xffffff,
+			color: "white",
 			transmission: 1,
-			opacity: 0.7,
-			metalness: 0,
+			dispersion: 1,
+			opacity: 1,
 			roughness: 0,
-			ior: 1,
-			thickness: 5,
+			reflectivity: 1,
+			ior: 2,
+			thickness: 1,
 			specularIntensity: 1,
-			specularColor: 0xffffff,
-			lightIntensity: 1,
-			exposure: 1,
-			side: THREE.DoubleSide,
+			specularColor: "white",
 			transparent: true
 		});
 
 		// базов кристален нашественик
 		var invaderMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(7, 0), invaderMaterial);
-
 		// масив с нашественици
 		var invaders = [];
 		// брой нашественици
